@@ -6,8 +6,27 @@
 }
 .sidebar {
   min-height: 800px;
-}.post{
-    margin: 20px;
-    padding: 20px;
-    width: 60%;
+}
+.post {
+  margin: 20px;
+  padding: 20px;
+  min-width: 30rem;
+}
+.post-card {
+  margin: 20px 50px;
+  width: 400px;
+}
+.hashtag {
+  margin: 0px 3px;
+}
+.reactions {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom:0px;
+}.submit{
+  width: 50%;
+  margin: 30px;
+  padding: 20px;
+  border: 1px solid rgb(156, 156, 156);
+  border-radius: 20px;
 }
