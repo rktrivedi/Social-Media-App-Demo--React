@@ -7,7 +7,7 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <div className="card post-card" >
+      <div className="card post-card">
         <div className="card-body">
           <h5 className="card-title">
             {post.title}
@@ -26,7 +26,7 @@ const Post = ({ post }) => {
             </span>
           ))}
           <div className="alert alert-success reactions" role="alert">
-            {post.reaction} People Reacted in the Post.
+            {post.reactions} People Reacted in the Post.
           </div>
         </div>
       </div>

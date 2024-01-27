@@ -5,6 +5,7 @@ const DEFAULT_CONTEXT = {};
 export const PostList = createContext({
   postList: [],
   addPost: () => {},
+  addAllPosts: () => {},
   deletePost: () => {},
 });
 const postListReducer = (currPostlist, action) => {
@@ -13,6 +14,8 @@ const postListReducer = (currPostlist, action) => {
     newPostList = currPostlist.filter(
       (post) => post.id !== action.payload.postId
     );
+  } else if (action.type === "ADD_INITIAL_POST") {
+    newPostList = action.payload.posts;
   } else if (action.type === "ADD_POST") {
     newPostList = [action.payload, ...currPostlist];
   }
@@ -20,14 +23,11 @@ const postListReducer = (currPostlist, action) => {
 };
 
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(
-    postListReducer,
-    DEFAULT_POST_LIST
-  );
+  const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
-  const addPost = (userId, postTitle, postBody, reaction, tags) => {
+  const addPost = (userId, postTitle, postBody, reactions, tags) => {
     console.log(
-      `${userId} post ${postTitle} body ${postBody} and${reaction} and${tags}`
+      `${userId} post ${postTitle} body ${postBody} and${reactions} and${tags}`
     );
 
     dispatchPostList({
@@ -36,9 +36,18 @@ const PostListProvider = ({ children }) => {
         id: Date.now(),
         title: postTitle,
         body: postBody,
-        reaction: reaction,
+        reaction: reactions,
         userId: userId,
         tags: tags,
+      },
+    });
+  };
+
+  const addAllPosts = (posts) => {
+    dispatchPostList({
+      type: "ADD_INITIAL_POST",
+      payload: {
+        posts,
       },
     });
   };
@@ -51,21 +60,10 @@ const PostListProvider = ({ children }) => {
     });
   };
   return (
-    <PostList.Provider value={{ postList, addPost, deletePost }}>
+    <PostList.Provider value={{ postList, addPost, deletePost, addAllPosts }}>
       {children}
     </PostList.Provider>
   );
 };
-
-const DEFAULT_POST_LIST = [
-  {
-    id: "2",
-    title: "Attending Workshop @IIT Patna",
-    body: "Hello Friends i am going to attend seminaar on IOT @ IIT Patna",
-    reaction: 8,
-    userId: "user_10",
-    tags: ["Seminaar", "GOa", "PartyTime"],
-  },
-];
 
 export default PostListProvider;

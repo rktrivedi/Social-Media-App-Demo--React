@@ -19,7 +19,6 @@ function App() {
         <div className="content">
           <Header />
           {selectedTab === "Home" ? <PostList /> : <CreatePost />}
-
           <Footer />
         </div>
       </div>
